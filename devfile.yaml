@@ -23,7 +23,7 @@ components:
       - name: MAVEN_OPTS
         value: '-Xmx2048m -Duser.home=/home/developer'
       - name: MAVEN_MIRROR_URL
-        value: http://nexus.nexus:8081/repository/maven-all-public
+        value: http://nexus.nexus.svc:8081/repository/maven-all-public
     endpoints:
        - name: 8080-port
          port: 8080
@@ -58,8 +58,7 @@ commands:
         type: exec
         workdir: /projects/workshop
         component: workshop-tools
-                  
- 
+       
   - name: 'Inventory - Compile (Dev Mode)'
     actions:
       - command: >-
@@ -68,7 +67,6 @@ commands:
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
                 
- 
   - name: 'Inventory - Build'
     actions:
       - command: >-
@@ -76,7 +74,6 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
-                
  
   - name: 'Inventory - Create Component'
     actions:
@@ -84,8 +81,7 @@ commands:
           odo component create java:11 inventory --app coolstore --binary target/inventory-quarkus-1.0.0-SNAPSHOT-runner.jar --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
-        component: workshop-tools
-                
+        component: workshop-tools          
  
   - name: 'Inventory - Push'
     actions:
@@ -95,15 +91,13 @@ commands:
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
                 
- 
   - name: 'Inventory - Expose'
     actions:
       - command: >-
           odo url create inventory --port 8080
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
-        component: workshop-tools
-                
+        component: workshop-tools       
  
   - name: 'Catalog - Build'
     actions:
@@ -111,8 +105,7 @@ commands:
           mvn clean package -DskipTests
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools
-                
+        component: workshop-tools       
  
   - name: 'Catalog - Run'
     actions:
@@ -120,8 +113,7 @@ commands:
           mvn spring-boot:run
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools
-                
+        component: workshop-tools          
  
   - name: 'Catalog - Create Component'
     actions:
@@ -129,8 +121,7 @@ commands:
           odo component create java:11 catalog --app coolstore --binary target/catalog-1.0-SNAPSHOT.jar --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools
-                
+        component: workshop-tools        
  
   - name: 'Catalog - Expose'
     actions:
@@ -138,8 +129,7 @@ commands:
           odo url create catalog --port 8080
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools
-                
+        component: workshop-tools       
  
   - name: 'Catalog - Push'
     actions:
@@ -147,8 +137,7 @@ commands:
           odo push
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools
-                
+        component: workshop-tools       
  
   - name: 'Gateway - Create Component'
     actions:
@@ -156,8 +145,7 @@ commands:
           odo component create dotnet:3.1-ubi8 gateway --app coolstore --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools
-                
+        component: workshop-tools     
  
   - name: 'Gateway - Expose'
     actions:
@@ -165,8 +153,7 @@ commands:
           odo url create gateway --port 8080
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools
-                
+        component: workshop-tools        
  
   - name: 'Gateway - Push'
     actions:
@@ -174,8 +161,7 @@ commands:
           odo push
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools
-                
+        component: workshop-tools        
  
   - name: 'Catalog - Link to Gateway'
     actions:
@@ -183,8 +169,7 @@ commands:
           odo link catalog --port 8080 --component gateway
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools
-                
+        component: workshop-tools 
  
   - name: 'Inventory - Link to Gateway'
     actions:
@@ -194,7 +179,6 @@ commands:
         workdir: /projects/workshop/labs/gateway-dotnet
         component: workshop-tools
                 
- 
   - name: 'Catalog - Generate Traffic'
     actions:
       - command: >-
@@ -203,7 +187,6 @@ commands:
         workdir: /projects/workshop/labs/catalog-spring-boot
         component: workshop-tools
                 
- 
   - name: 'Catalog - Add PodAffinity'
     actions:
       - command: >-
@@ -220,7 +203,6 @@ commands:
         workdir: /projects/workshop
         component: workshop-tools
                   
- 
   - name: 'Inventory - Mount ConfigMap'
     actions:
       - command: >-
@@ -229,7 +211,6 @@ commands:
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
                 
- 
   - name: 'Gateway - Generate Traffic'
     actions:
       - command: >-
@@ -254,7 +235,6 @@ commands:
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
                   
- 
   - name: 'GitOps - Export Coolstore'
     actions:
       - command: >-
@@ -263,7 +243,6 @@ commands:
         workdir: /projects/workshop/.tasks
         component: workshop-tools
                 
- 
   - name: 'Pipeline - Deploy Coolstore'
     actions:
       - command: >-
@@ -287,8 +266,7 @@ commands:
         type: exec
         workdir: /projects/workshop/.tasks
         component: workshop-tools
-                  
- 
+                   
   - name: 'Service Mesh - Deploy Catalog and Gateway'
     actions:
       - command: >-
@@ -296,7 +274,6 @@ commands:
         type: exec
         component: workshop-tools
                 
- 
   - name: 'OpenShift - Cleanup'
     actions:
       - command: >-
