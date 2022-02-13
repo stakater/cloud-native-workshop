@@ -15,7 +15,7 @@ components:
       java.server.launchMode: Standard
       java.autobuild.enabled: false
   - type: dockerimage
-    image: 'stakater/workshop-tools:v0.0.4'
+    image: 'stakater/workshop-tools:v0.0.5'
     alias: workshop-tools
     memoryLimit: "3072M"
     mountSources: true
