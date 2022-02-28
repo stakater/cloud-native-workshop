@@ -87,3 +87,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+route:
+  enabled: true
+  port:
+    targetPort: 8080-tcp
