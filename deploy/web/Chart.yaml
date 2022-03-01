@@ -1,6 +1,6 @@
 apiVersion: v2
 name: web
-description: A Helm chart for Kubernetes
+description: Node.js and Angular-based web frontend
 
 # A chart can be either an 'application' or a 'library' chart.
 #

@@ -3,7 +3,7 @@
 ##################################
 application:
 
-  applicationName: "review"
+  applicationName: "web"
 
   deployment:
     enabled: false
