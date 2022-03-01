@@ -1,0 +1,27 @@
+##################################
+# Application / App / Microservice
+##################################
+application:
+
+  applicationName: "review"
+
+  deployment:
+    enabled: false
+
+  configMap:
+    enabled: false
+
+  service:
+    ports:
+      - port: 8080
+        name: https
+        targetPort: 8080
+
+  rbac:
+    serviceAccount:
+      enabled: true
+
+  route:
+    enabled: false
+
+
