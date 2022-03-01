@@ -20,9 +20,5 @@ service:
     - port: 8080
       name: 8080-tcp
       targetPort: 8080
-    - port: 8443
-      name: 8443-tcp
-      targetPort: 8443
-    - port: 8778
-      name: 8778-tcp
-      targetPort: 8778
+  selector:
+    deploymentconfig: inventory-coolstore
