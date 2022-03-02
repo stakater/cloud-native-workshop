@@ -1,10 +1,10 @@
-applicationName: "catalog"
+applicationName: "gateway"
 
 deployment:
   #  if set the following labels on your Deployment app.kubernetes.io/instance=mycomponent app.kubernetes.io/part-of=myapp
   # it will mean that it is mycomponent a component in myapp the application.
   additionalLabels:
-    app.kubernetes.io/instance: catalog
+    app.kubernetes.io/instance: gateway
     app.kubernetes.io/part-of: coolstore
   replicas: 1
   reloadOnChange: true
@@ -20,4 +20,3 @@ route:
   enabled: true
   port:
     targetPort: 8080-tcp
-
