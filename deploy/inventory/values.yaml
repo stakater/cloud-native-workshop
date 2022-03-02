@@ -6,8 +6,8 @@ deployment:
   additionalLabels:
     app.kubernetes.io/instance: inventory
     app.kubernetes.io/part-of: coolstore
-replicaCount: 1
-
+  replicas: 1
+  reloadOnChange: true
 
 service:
   ports:
