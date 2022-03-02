@@ -1,24 +1,23 @@
-# Default values for catalog.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+applicationName: "inventory"
 
-replicaCount: 1
-
-image:
-  repository: ""
-  pullPolicy: ""
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
+deployment:
+  #  if set the following labels on your Deployment app.kubernetes.io/instance=mycomponent app.kubernetes.io/part-of=myapp
+  # it will mean that it is mycomponent a component in myapp the application.
+  additionalLabels:
+    app.kubernetes.io/instance: catalog
+    app.kubernetes.io/part-of: coolstore
+  replicas: 1
+  reloadOnChange: true
 
 service:
   ports:
-  - port: 8080
-    name: 8080-tcp
-    targetPort: 8080
-  selector:
-    deploymentconfig: catalog-coolstore
+    - port: 8080
+      name: 8080-tcp
+      protocol: TCP
+      targetPort: 8080
+
+route:
+  enabled: true
+  port:
+    targetPort: 8080-tcp
+
