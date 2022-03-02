@@ -1,11 +1,14 @@
 applicationName: "web_nodejs"
 
 deployment:
+  strategy:
+    type: RollingUpdate
+
   replicas: 1
   image:
-    repository: image-registry.openshift-image-registry.svc:5000/default/web-coolstore@sha256:1e4afbbabc91cb14f80da429d373a0f9429679edb678084ff7cce6ea97b6559c
+    repository: openshift/nodejs
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "14-ubi8"
 
 service:
   ports:
