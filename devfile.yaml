@@ -15,7 +15,7 @@ components:
       java.server.launchMode: Standard
       java.autobuild.enabled: false
   - type: dockerimage
-    image: 'stakater/workshop-tools:v0.0.5'
+    image: 'stakater/workshop-tools:v0.0.7'
     alias: workshop-tools
     memoryLimit: "3072M"
     mountSources: true
@@ -37,7 +37,7 @@ components:
          port: 5005
          attributes:
            protocol: http
-           public: 'false' 
+           public: 'false'
     volumes:
       - name: kubefolder
         containerPath: /home/developer/.kube
@@ -50,7 +50,7 @@ commands:
         type: exec
         workdir: /projects/workshop
         component: workshop-tools
-  
+
   - name: 'OpenShift - Create Development Project'
     actions:
       - command: >-
@@ -58,7 +58,7 @@ commands:
         type: exec
         workdir: /projects/workshop
         component: workshop-tools
-       
+
   - name: 'Inventory - Compile (Dev Mode)'
     actions:
       - command: >-
@@ -66,7 +66,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
-                
+
   - name: 'Inventory - Build'
     actions:
       - command: >-
@@ -74,15 +74,15 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
- 
+
   - name: 'Inventory - Create Component'
     actions:
       - command: >-
           odo component create java:11 inventory --app coolstore --binary target/inventory-quarkus-1.0.0-SNAPSHOT-runner.jar --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
-        component: workshop-tools          
- 
+        component: workshop-tools
+
   - name: 'Inventory - Push'
     actions:
       - command: >-
@@ -90,87 +90,87 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
-                
+
   - name: 'Inventory - Expose'
     actions:
       - command: >-
           odo url create inventory --port 8080
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
-        component: workshop-tools       
- 
+        component: workshop-tools
+
   - name: 'Catalog - Build'
     actions:
       - command: >-
           mvn clean package -DskipTests
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools       
- 
+        component: workshop-tools
+
   - name: 'Catalog - Run'
     actions:
       - command: >-
           mvn spring-boot:run
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools          
- 
+        component: workshop-tools
+
   - name: 'Catalog - Create Component'
     actions:
       - command: >-
           odo component create java:11 catalog --app coolstore --binary target/catalog-1.0-SNAPSHOT.jar --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools        
- 
+        component: workshop-tools
+
   - name: 'Catalog - Expose'
     actions:
       - command: >-
           odo url create catalog --port 8080
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools       
- 
+        component: workshop-tools
+
   - name: 'Catalog - Push'
     actions:
       - command: >-
           odo push
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
-        component: workshop-tools       
- 
+        component: workshop-tools
+
   - name: 'Gateway - Create Component'
     actions:
       - command: >-
           odo component create dotnet:3.1-ubi8 gateway --app coolstore --s2i --project my-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools     
- 
+        component: workshop-tools
+
   - name: 'Gateway - Expose'
     actions:
       - command: >-
           odo url create gateway --port 8080
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools        
- 
+        component: workshop-tools
+
   - name: 'Gateway - Push'
     actions:
       - command: >-
           odo push
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools        
- 
+        component: workshop-tools
+
   - name: 'Catalog - Link to Gateway'
     actions:
       - command: >-
           odo link catalog --port 8080 --component gateway
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
-        component: workshop-tools 
- 
+        component: workshop-tools
+
   - name: 'Inventory - Link to Gateway'
     actions:
       - command: >-
@@ -178,7 +178,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/gateway-dotnet
         component: workshop-tools
-                
+
   - name: 'Catalog - Generate Traffic'
     actions:
       - command: >-
@@ -186,7 +186,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/catalog-spring-boot
         component: workshop-tools
-                
+
   - name: 'Catalog - Add PodAffinity'
     actions:
       - command: >-
@@ -202,7 +202,7 @@ commands:
         type: exec
         workdir: /projects/workshop
         component: workshop-tools
-                  
+
   - name: 'Inventory - Mount ConfigMap'
     actions:
       - command: >-
@@ -210,7 +210,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
-                
+
   - name: 'Gateway - Generate Traffic'
     actions:
       - command: >-
@@ -226,7 +226,7 @@ commands:
         type: exec
         workdir: /projects/workshop/.tasks
         component: workshop-tools
-  
+
   - name: 'Inventory - Commit'
     actions:
       - command: >-
@@ -234,7 +234,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/inventory-quarkus
         component: workshop-tools
-                  
+
   - name: 'GitOps - Export Coolstore'
     actions:
       - command: >-
@@ -242,7 +242,7 @@ commands:
         type: exec
         workdir: /projects/workshop/.tasks
         component: workshop-tools
-                
+
   - name: 'Pipeline - Deploy Coolstore'
     actions:
       - command: >-
@@ -258,7 +258,7 @@ commands:
         type: exec
         workdir: /projects/workshop/labs/gitops/inventory-coolstore
         component: workshop-tools
-  
+
   - name: 'GitOps - Commit & Configure Coolstore'
     actions:
       - command: >-
@@ -266,14 +266,14 @@ commands:
         type: exec
         workdir: /projects/workshop/.tasks
         component: workshop-tools
-                   
+
   - name: 'Service Mesh - Deploy Catalog and Gateway'
     actions:
       - command: >-
           oc patch dc/catalog-coolstore --patch '{"spec": {"template": {"metadata": {"annotations": {"sidecar.istio.io/inject": "true"}}}}}' -n cn-project${CHE_WORKSPACE_NAMESPACE#user} && oc rollout latest dc/catalog-coolstore -n cn-project${CHE_WORKSPACE_NAMESPACE#user} && oc patch dc/gateway-coolstore --patch '{"spec": {"template": {"metadata": {"annotations": {"sidecar.istio.io/inject": "true"}}}}}' -n cn-project${CHE_WORKSPACE_NAMESPACE#user} && oc rollout latest dc/gateway-coolstore -n cn-project${CHE_WORKSPACE_NAMESPACE#user}
         type: exec
         component: workshop-tools
-                
+
   - name: 'OpenShift - Cleanup'
     actions:
       - command: >-
@@ -282,3 +282,26 @@ commands:
         workdir: /projects/workshop
         component: workshop-tools
 
+  - name: 'Helm - Install web Nodejs'
+    actions:
+      - command: >-
+          helm install web web_nodejs --values web_nodejs/values.yaml
+        type: exec
+        workdir: /projects/workshop/deploy
+        component: workshop-tools
+
+  - name: 'Helm - Install inventory'
+    actions:
+      - command: >-
+          helm install inventory inventory --values inventory/values.yaml
+        type: exec
+        workdir: /projects/workshop/deploy
+        component: workshop-tools
+
+  - name: 'Helm - Install catalog'
+    actions:
+      - command: >-
+          helm install catalog catalog --values catalog/values.yaml
+        type: exec
+        workdir: /projects/workshop/deploy
+        component: workshop-tools

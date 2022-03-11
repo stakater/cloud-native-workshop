@@ -1,0 +1,23 @@
+applicationName: "web_nodejs"
+
+deployment:
+  strategy:
+    type: RollingUpdate
+
+  replicas: 1
+  image:
+    repository: openshift/nodejs
+    pullPolicy: IfNotPresent
+    tag: "14-ubi8"
+
+service:
+  ports:
+    - port: 8080
+      name: 8080-tcp
+      protocol: TCP
+      targetPort: 8080
+
+route:
+  enabled: true
+  port:
+    targetPort: 8080-tcp
