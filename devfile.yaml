@@ -310,7 +310,7 @@ commands:
     actions:
       - workdir: /projects/workshop/
         type: exec
-        command: 'HOST=$(oc get route image-registry -n openshift-image-registry --template=''{{ .spec.host }}'') podman login -u $(oc whoami) -p $(oc whoami -t) $HOST'
+        command: 'HOST=$(oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}') podman login -u $(oc whoami) -p $(oc whoami -t) --tls-verify=false $HOST '
         component: workshop-tools
 
   - name: Podman - Podman Build Web NodeJs Application
@@ -319,3 +319,4 @@ commands:
         type: exec
         command: podman build -t web .
         component: workshop-tools
+
