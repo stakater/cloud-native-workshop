@@ -305,3 +305,17 @@ commands:
         type: exec
         workdir: /projects/workshop/deploy
         component: workshop-tools
+
+  - name: Podman - Podman login
+    actions:
+      - workdir: /projects/workshop/
+        type: exec
+        command: 'HOST=$(oc get route image-registry -n openshift-image-registry --template=''{{ .spec.host }}'') podman login -u $(oc whoami) -p $(oc whoami -t) $HOST'
+        component: workshop-tools
+
+  - name: Podman - Podman Build Web NodeJs Application
+    actions:
+      - workdir: /projects/workshop/labs/web-nodejs
+        type: exec
+        command: podman build -t web .
+        component: workshop-tools
